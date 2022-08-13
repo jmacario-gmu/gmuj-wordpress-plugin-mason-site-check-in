@@ -29,7 +29,7 @@ function gmuj_sci_add_toplevel_menu() {
 		'manage_options',
 		'gmuj_sci',
 		'gmuj_sci_display_settings_page',
-		'dashicons-admin-generic',
+		gmuj_sci_svg_icon(),
 		1
 	);
 
