@@ -114,8 +114,9 @@ function email_button_action(){
   // Output message to page
     echo '<div id="message" class="updated fade"><p>' . 'Sending email notification...' . '</p></div>';
 
-  // refresh database
-    gmuj_sci_send_email();
+  // send test email
+    gmuj_send_check_in_email();
+
 }
 
 /**

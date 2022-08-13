@@ -25,9 +25,10 @@ function gmuj_sci_run_check_in_process(){
 
 		// Update checkpoint
 			gmuj_sci_update_checkpoint();
-					
-		// Send check-in email
-			gmuj_sci_send_email();
+
+		// Send check in notification email
+			gmuj_send_check_in_email();
+
 	}
 
 }
@@ -71,48 +72,13 @@ function gmuj_sci_update_checkpoint(){
 
 }
 
-function gmuj_sci_send_email(){
+function gmuj_send_check_in_email() {
 
-	// Get plugin options
-		$gmuj_sci_options = get_option('gmuj_sci_options');
+		// Set email subject and body
+			$email_subject='Mason Site Check-In ('.get_days_since_most_recent_touch_date().' days'.'): '.get_bloginfo('name').' ('.$_SERVER['HTTP_HOST'].')';
+			$email_body=gmuj_sci_get_summary_info().gmuj_sci_get_detail_info();
 
-	// Get website name
-		$website_name = get_bloginfo('name');
-
-	// Set the number of hours to subtract to correct for timezone
-	  $hoursToSubtract = 4;
-
-	// Output the current time to a string, while subtracting 4 hours so the time is correct for our time zone
-		//$date_string = date("F j, Y, g:i a", time()->sub(new DateInterval("PT{$hoursToSubtract}H")));
-	  	$date_string = date("F j, Y, g:i a", time());
-	
-	// Build email subject
-		$email_subject='';
-		$email_subject.='Mason Site Check-In ('.get_days_since_most_recent_touch_date().' days'.'): '.$website_name.' ('.$_SERVER['HTTP_HOST'].')';
-	
-	// Build email body
-		$email_body='';
-		$email_body.=gmuj_sci_get_summary_info();	
-		$email_body.=gmuj_sci_get_detail_info();	
-
-	// Switch email to text/html - https://developer.wordpress.org/reference/hooks/wp_mail_content_type/#comment-777
-		add_filter('wp_mail_content_type', 'gmuj_sci_set_html_mail_content_type');
-
-	// Send email
-		// Send to webmaster
-			wp_mail('webmaster@gmu.edu', $email_subject, $email_body);
-		// Loop through other email addresses
-			if (!empty($gmuj_sci_options['gmuj_sci_settings_email'])) {
-				// Separate addresses
-					$addresses = explode(" ", $gmuj_sci_options['gmuj_sci_settings_email']);
-				// Loop through email addresses
-					foreach ($addresses as $address){
-						// Send notification email
-						wp_mail($address, $email_subject, $email_body);
-					}
-			}	
-
-	// Reset content-type to avoid conflicts -- https://core.trac.wordpress.org/ticket/23578
-		remove_filter('wp_mail_content_type', 'gmuj_sci_set_html_mail_content_type');
+		// Send check-in email
+			gmuj_sci_send_email($email_subject,$email_body,"all");
 
 }
