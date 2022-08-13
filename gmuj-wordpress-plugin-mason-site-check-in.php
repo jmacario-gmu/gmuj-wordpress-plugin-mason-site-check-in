@@ -30,9 +30,8 @@
 	$days_per_checkpoint=30;
 
 // Include files
-	// Functions
-		// Site info
-			include('php/fnsSiteInfo.php');
+	// Site info
+		include('php/fnsSiteInfo.php');
 	// Cron
 		include('php/cron.php');
 	// Admin menu
