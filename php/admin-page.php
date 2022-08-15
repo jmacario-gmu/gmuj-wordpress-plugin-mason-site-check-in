@@ -18,13 +18,6 @@ function gmuj_sci_display_settings_page() {
 	// Get plugin options
 	$gmuj_sci_options = get_option('gmuj_sci_options');
 
-	// email test button action
-		// Check whether the button has been pressed AND also check the nonce value
-			if (isset($_POST['email_button']) && check_admin_referer('email_button_clicked')) {
-		// We're good; run the action.
-			email_button_action();
-		}
-
 	// Begin HTML output
 	echo "<div class='wrap'>";
 
@@ -34,12 +27,12 @@ function gmuj_sci_display_settings_page() {
 	// Output basic plugin info
 	echo "<p>This plugin helps to identify when your website content was last updated.</p>";
 
-	// Output check-in info
-	echo '<p>Check-in period (days): '.$days_per_checkpoint.'</p>';
-	echo '<p>Last checkpoint: ';
-	$last_checkpoint = get_option('gmuj_sci_last_checkpoint');
-	echo !empty($last_checkpoint) ? $last_checkpoint : 0;
-	echo '</p>';
+	// email test button action
+		// Check whether the button has been pressed AND also check the nonce value
+			if (isset($_POST['email_button']) && check_admin_referer('email_button_clicked')) {
+		// We're good; run the action.
+			email_button_action();
+		}
 
 	// Display summary info
 	echo '<h2>Summary</h2>';
@@ -52,44 +45,7 @@ function gmuj_sci_display_settings_page() {
 	echo gmuj_sci_get_secure_info();
 	echo '</p>';
 
-	
-	// Display email info
-	echo '<h2>Email Information</h2>';
-
-    // Display email recipient addresses
-	if (!empty($gmuj_sci_options['gmuj_sci_settings_email'])) {
-		// Display intro
-			echo '<h3>Email Notification Recipients</h3>';
-			echo '<p>Notifications will be sent to the following email addresses (specified in the Email Settings section below):</p>';
-		// Separate addresses
-			$addresses = explode(" ", $gmuj_sci_options['gmuj_sci_settings_email']);
-		// Loop through email addresses
-			foreach ($addresses as $index=>$address){
-				$index_for_display=$index+1;
-				echo 'Recipient '.$index_for_display.': '.$address.'<br />';
-			}
-	} else {
-		echo '<p>Please enter one or more space-separated email addresses in the box below.</p>';
-	}
-
-    // Display email button
-	if (!empty($gmuj_sci_options['gmuj_sci_settings_email'])) {
-		// Heading
-		echo '<h3>Test Emails</h3>';
-		echo '<p>Use the button below to test sending an email to the specified email recipients.</p>';
-		// Start form
-		echo '<form action="admin.php?page=gmuj_sci" method="post">';
-		// Add nonce
-		wp_nonce_field('email_button_clicked');
-		// Add fields
-		echo '<input type="hidden" value="true" name="email_button" />';
-		// Add submit button
-		submit_button('Test Email Notifications');
-		// End form
-		echo '</form>';
-	}
-
-	// Begin form
+	// Begin settings form
 	echo "<form action='options.php' method='post'>";
 
 	// output settings fields - outputs required security fields - parameter specifes name of settings group
@@ -104,9 +60,23 @@ function gmuj_sci_display_settings_page() {
 	// Close form
 	echo "</form>";
 
+  // Display email test button, if we have notification email addresses provided
+	if (!empty($gmuj_sci_options['gmuj_sci_settings_email'])) {
+		// Start form
+		echo '<form action="admin.php?page=gmuj_sci" method="post">';
+		// Add nonce
+		wp_nonce_field('email_button_clicked');
+		// Add fields
+		echo '<input type="hidden" value="true" name="email_button" />';
+		// Add submit button
+		submit_button('Test Email Notifications');
+		// End form
+		echo '</form>';
+	}
+
 	// Finish HTML output
 	echo "</div>";
-	
+
 }
 
 function email_button_action(){
@@ -133,7 +103,7 @@ function gmuj_sci_callback_section_settings_general() {
  */
 function gmuj_sci_callback_section_settings_email() {
 
-	//echo '<p>Set the Mason Site Check-In email settings.</p>';
+	echo '<p>Notification emails will be sent to the email addresses specified below.</p>';
 
 }
 
