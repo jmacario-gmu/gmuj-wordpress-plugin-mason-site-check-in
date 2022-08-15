@@ -11,7 +11,7 @@ function gmuj_sci_register_routes() {
 	// Most recent touch
 	register_rest_route('gmuj-sci', 'most-recent-touch', array(
 			'methods' => 'GET',
-			'callback' => 'get_most_recent_touch_date',
+			'callback' => function(){return array('last_modified' => get_most_recent_touch_date());}
 		)
 	);
 	
