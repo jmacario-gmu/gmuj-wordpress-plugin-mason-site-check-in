@@ -42,7 +42,6 @@ function gmuj_sci_display_settings_page() {
 	echo '<h2>Details</h2>';
 	echo '<p>';
 	echo gmuj_sci_get_detail_info();
-	echo gmuj_sci_get_secure_info();
 	echo '</p>';
 
 	// Begin settings form

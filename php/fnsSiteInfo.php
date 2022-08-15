@@ -164,19 +164,6 @@ function gmuj_sci_get_detail_info() {
 
 }
 
-function gmuj_sci_get_secure_info() {
-
-	// Setup return variable
-		$return_string="";
-
-	// Most recent login user
-		$return_string .= "Most recent login user: " . gmuj_sci_get_most_recent_login_username() . "<br />". PHP_EOL;
-
-	// Return value
-		return $return_string;    	
-
-}
-
 function get_most_recent_touch_date(){
 
 	// Get array of most recent touch dates

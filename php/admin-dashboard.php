@@ -35,7 +35,6 @@ function gmuj_sci_custom_dashboard_meta_box_summary() {
 			echo '<h4><strong>Details</strong></h4>';
 			echo '<p>';
 			echo gmuj_sci_get_detail_info();
-			echo gmuj_sci_get_secure_info();
 			echo '</p>';
 
 }
