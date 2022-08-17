@@ -34,7 +34,8 @@ function gmuj_sci_register_routes() {
 
 		    // Return data
 		    return array(
-				'theme' => $active_theme->Name,
+				'theme_slug' => get_stylesheet(),
+				'theme_name' => $active_theme->Name,
 				'theme_version' => $active_theme->Version,
 			);
 
