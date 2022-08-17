@@ -24,4 +24,21 @@ function gmuj_sci_register_routes() {
 		}
 	));
 
+	// Theme info
+	register_rest_route('gmuj-sci', 'theme-info', array(
+		'methods' => 'GET',
+		'callback' => function(){
+
+		    // Get current theme
+		    $active_theme = wp_get_theme();
+
+		    // Return data
+		    return array(
+				'theme' => $active_theme->Name,
+				'theme_version' => $active_theme->Version,
+			);
+
+		}
+	));
+
 }
