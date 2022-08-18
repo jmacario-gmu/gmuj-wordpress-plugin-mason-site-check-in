@@ -8,8 +8,8 @@
  * Plugin Name:       Mason WordPress: Mason Site Check-In
  * Author:            Jan Macario
  * Plugin URI:        https://github.com/jmacario-gmu/gmuj-wordpress-plugin-mason-site-check-in
- * Description:       Mason WordPress plugin which provides information about when a site was last edited.
- * Version:           1.1
+ * Description:       Mason WordPress plugin which provides information about this website.
+ * Version:           1.2
  */
 
 
