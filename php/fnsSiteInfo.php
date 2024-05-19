@@ -36,8 +36,8 @@ function gmuj_sci_get_modified_date_of_most_recent_post_record_of_type($post_typ
 	// Get record representing most recently modified record of the type specified, while ignoring auto-drafts 
 		$record = $wpdb->get_row("SELECT * FROM $wpdb->posts WHERE post_type='$post_type' AND post_status<>'auto-draft' ORDER BY post_modified DESC LIMIT 1");
 
-	// Store return value
-		$return_string=$record->post_modified;
+	// if we have a record, store the post_modified value as the return value
+		if ($record) { $return_string=$record->post_modified; }
 
 	// Return value
 		return $return_string;  
